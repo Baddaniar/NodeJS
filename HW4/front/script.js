@@ -2,6 +2,8 @@ const usersBlock = document.querySelector(".users_block");
 const carsBlock = document.querySelector(".cars_block");
 const createUserBtn = document.querySelector("#create_user_btn");
 const createCarBtn = document.querySelector("#create_car_btn");
+const deleteAllUsersBtn = document.querySelector("#clear_all_users")
+const deleteAllCarsBtn = document.querySelector("#clear_all_cars")
 
 BASE_URL = "http://localhost:8080";
 
@@ -25,7 +27,7 @@ const loadData = async () => {
   const dataCar = await responseCar.json();
 
   for (const cars of dataCar) {
-    carsBlock.innerHTML += `<p>${cars.model}<button onclick="deleteUser(${cars.id})">Delete</button></p>`;
+    carsBlock.innerHTML += `<p>${cars.model}<button onclick="deleteCar(${cars.id})">Delete</button></p>`;
   }
 };
 
@@ -70,7 +72,7 @@ createCarBtn.addEventListener("click", () => {
     })
     .catch(() => alert("Car create error"));
 });
-
+//Функции удаления пользователя и юзера
 const deleteUser = (id) => {
   fetch(BASE_URL + "/users/" + id, { method: "Delete" })
     .then(() => alert("User deleted!"))
@@ -79,3 +81,16 @@ const deleteUser = (id) => {
     })
     .catch(() => alert("User delete error"));
 };
+
+const deleteCar = (id) => {
+  fetch(BASE_URL + "/cars/" + id, { method: "delete" })
+    .then(() => alert("car deleted!"))
+    .then(() => {
+      loadData();
+    })
+    .catch(() => alert("car delete error"));
+};
+
+
+
+
