@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "model": "Nissan"
+  },
+  {
+    "id": 2,
+    "model": "Kia"
+  },
+  {
+    "id": 3,
+    "model": "BMW"
+  },
+  {
+    "id": 4,
+    "model": "Mersedes"
+  },
+  {
+    "id": 5,
+    "model": "Honda"
+  }
+]
