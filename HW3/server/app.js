@@ -1,13 +1,26 @@
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
 const fs = require("fs");
-const http = require("http");
+const cors = require("cors");
 
-function handler(req, res) {
-    const carsJSON = fs.readFileSync("cars.json", { encoding: "utf-8" });
-    if (req.url === "/cars" && req.method === "GET") {
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: "false" }));
 
-    } else if (req.url === "/cars" && req.method === "POST") {
-        
-    }
-}
 
-http.createServer(handler).listen(3030);
+app.get("/cars", (req, res) =>{
+    res.send(fs.readFileSync("cars.json", {encoding: "utf-8"}));
+});
+
+app.post("/cars", (req, res) =>{
+    console.log(req.body)
+    const carsArray = JSON.parse(fs.readFileSync("./cars.json", {encoding: "utf-8"}))
+    fs.writeFileSync("cars.json", JSON.stringify([...carsArray, {id: carsArray.length+1, model: req.body.model}]));
+    res.send("cars added");
+});
+
+
+app.listen(8080, () => {
+  console.log("Server start");
+});
