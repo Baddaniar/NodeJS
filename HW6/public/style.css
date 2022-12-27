@@ -1,0 +1,32 @@
+table{
+    border-top: 7px solid rgb(48, 145, 255);
+    border-collapse: collapse;
+    text-align: center;
+    width: 650px;
+}
+
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+td, th {
+    border: 1px solid rgb(48, 145, 255);
+    border-left-width: 0;
+    padding: 14px;
+    vertical-align: top;
+    line-height: 1.2;
+}
