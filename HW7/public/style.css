@@ -1,0 +1,49 @@
+body{
+    text-align: center;
+}
+
+p{
+
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+.page_card{
+    width: 250px;
+    height: 280px;
+    border: 2px solid rgb(192, 192, 192);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    background-color: aliceblue;
+    box-shadow: 10px 5px 5px rgb(175, 171, 171);
+
+}
+
+#page_card_holder{
+    width: 900px;
+    height: 100%;
+    margin: 0 auto;
+    gap: 50px;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+}
+
+.page_name{
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.page_year{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 5px;
+}
+
+.page_img{
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+}

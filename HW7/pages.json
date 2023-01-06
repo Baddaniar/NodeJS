@@ -1,0 +1,32 @@
+[
+  {
+    "model": "Daniar",
+    "year": 1925,
+    "img_src": "https://picsum.photos/200/200"
+  },
+  {
+    "model": "test1",
+    "year": 566,
+    "img_src": "https://picsum.photos/200/207"
+  },
+  {
+    "model": "test1",
+    "year": 566,
+    "img_src": "https://picsum.photos/200/300"
+  },
+  {
+    "model": "test1",
+    "year": 566,
+    "img_src": "https://picsum.photos/200/209"
+  },
+  {
+    "model": "test1",
+    "year": 566,
+    "img_src": "https://picsum.photos/200/210"
+  },
+  {
+    "model": "Aslan",
+    "year": 566,
+    "img_src": "https://picsum.photos/200/208"
+  }
+]

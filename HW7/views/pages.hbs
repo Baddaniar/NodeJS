@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Pages</title>
+    
+</head>
+<body>
+    <h2>Pages</h2>
+    <div id="page_card_holder">
+    {{#each pages}}
+        <div class="page_card">
+            <p class="page_name">{{this.model}}</p>
+            <p class="page_year">{{this.year}}</p>
+            <img class="page_img" src="{{this.img_src}}" alt="">
+        </div>
+    {{/each}}
+    </div>
+
+</body>
+</html>
