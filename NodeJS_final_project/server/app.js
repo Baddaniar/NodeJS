@@ -1,0 +1,22 @@
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const postRouter = require("./routers/postRouter")
+const userRouter = require("./routers/userRouter")
+
+const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
+
+
+mongoose.connect(`mongodb+srv://admin:admin@cluster0.ms7n5wb.mongodb.net/?retryWrites=true&w=majority`, (error) =>{
+    if(error){
+        console.log("ERORR", error)
+    }else{
+        console.log("server started");
+        app.use("/posts", postRouter)
+        app.use("/users", userRouter)
+        app.listen(8080)
+    }
+});
