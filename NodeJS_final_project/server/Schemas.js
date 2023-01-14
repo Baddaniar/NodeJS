@@ -10,6 +10,7 @@ const ProjectUserSchema = new Schema({
 
 const ProjectPostSchema = new Schema({
     author: String,
+    postHeader: String,
     date: {
         type: Date,
         default: Date.now
