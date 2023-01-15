@@ -7,6 +7,29 @@
     <title>Profile</title>
 </head>
 <body>
-    
+    <nav>
+        <ul>
+            <li><a href="./feed.html">Лента</a></li>
+            <li><a href="./profile.html">Профиль</a></li>
+            <li><a href="./users.html">Список пользователей</a></li>
+        </ul>
+    </nav>
+    <div id="create_post_modal">
+        <label for="create_post_header">Название поста</label>
+        <input type="text" name="" id="create_post_header">
+        <label for="create_post_data">Название поста</label>
+        <textarea name="" id="create_post_data" cols="30" rows="10"></textarea>
+        <button id="create_post_btn">Создать</button>
+        <button>Отмена</button>
+    </div>
+    <div class="profile_info_block">
+        <input type="text" name="" id="author_fullName">
+        <textarea name="" id="author_about_field" cols="30" rows="10"></textarea>
+        <div class="ul" id="followed_author_list"></div>
+    </div>
+    <div class="author_posts_block">
+
+    </div>
+    <script src="./scripts/profileScript.js"></script>
 </body>
 </html>
