@@ -25,6 +25,18 @@ router.get("/:id", (req, res) => {
     });
 })
 
+//Получить данные для обноваления
+router.get("/update/:id", (req, res) => {
+    const id = req.params.id;
+    ProjectPostModel.find({_id: id}, (err, results) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).send(results);
+        }
+    });
+})
+
 
 //Создать пост - Работает
 router.post("/", async (req, res) => {

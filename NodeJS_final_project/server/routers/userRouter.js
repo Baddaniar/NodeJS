@@ -26,6 +26,17 @@ router.get("/:id", (req, res) => {
     })
 })
 
+router.post("/auth", (req, res) => {
+    const {login, password } = req.body;
+    ProjectUserModel.find({login: login, password: password}, (err, results) => {
+        if (err) {
+            res.status(500).send("null");
+        } else {
+            res.status(200).send(results);
+        }
+    });
+})
+
 //Добавить пользователя Он же регистрация - Работает
 router.post("/", (req, res) => {
     const { fullName, login, password } = req.body;
@@ -50,7 +61,6 @@ router.put("/:id", async (req, res) => {
 //Подписаться на пользователя - Работает
 router.post("/followUser", async (req, res) => {
     const { userId, followedUserId } = req.body;
-
     const user = await ProjectUserModel.findById(userId);
 
     user.followedAuthors.push(followedUserId)

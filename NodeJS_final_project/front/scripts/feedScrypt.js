@@ -1,6 +1,16 @@
+if(localStorage.getItem("user") === null){
+    window.location.href = `index.html`;
+}
+
 const postsFeed = document.querySelector(".posts_feed_block")
+const userId = JSON.parse(localStorage.getItem("user"));
 
 const BASE_URL = "http://localhost:8080";
+
+const logOut = () => {
+    localStorage.clear();
+    window.location.href = `index.html`;
+}
 
 const fetchData = async (route) => {
     const response = await fetch(BASE_URL + route);
@@ -23,21 +33,34 @@ const postData = async (route, payload) => {
     .catch(() => console.log("Error sending request"));
 };
 
-//Загрузка постов всех кроме автора
+//Загрузка постов всех кроме автора - Надо добавить автора. 
+//думаю может на бэкэ это сделать отдельный запрос феед что вернет только посты пользователя. заодно с автором
 const loadAllPosts = async () => {
-    const userId = "63c2e910ed162a1645f4ea48";
     postsFeed.innerHTML = ""
     const result = await fetchData("/posts");
-    const postsWithoutCurrent = result.filter((user) => user._id !== userId)
-    postsWithoutCurrent.forEach(post => {
+    const usersData = await fetchData("/users");
+    const userData = await fetchData(`/users/${userId}`);
+    const followedUsers = userData.followedAuthors
+    const usersFeed = result.filter((user) => followedUsers.includes(user.author))
+    usersFeed.forEach(post => {
+        let currentUser = usersData.filter((user) => post.author == user._id)
         postsFeed.innerHTML += `
         <div class="post_block">
-            <p>${post.postHeader}</p>
-            <p>${post.postData}</p>
-            <p>Likes: ${post.likesAmount}</p>
-            <input type="button" value="Like" onclick="likePost('${post._id}')">
-            <input type="button" value="unLike" onclick="unlikePost('${post._id}')">
+        <div class="user_info">
+            <div class="user_logo">
+                <img src="http://localhost:8080/userIcon.png" alt="">
+            </div>
+            <p class="post_author">${currentUser[0].fullName}</p>
+            <p class="post_date">${post.date}</p>
         </div>
+        <p class="post_header">${post.postHeader}</p>
+        <p class="post_data">${post.postData}</p>
+        <div class="post_like_part">
+            <img class="like_post_btn"  src="http://localhost:8080/like.png" alt="" onclick="likePost('${post._id}')">
+            <p class="likes_amount">${post.likesAmount}</p>
+            <img class="like_post_btn" src="http://localhost:8080/unlike.png" alt="" onclick="unlikePost('${post._id}')">
+        </div>
+    </div>
         `
     });
 }
