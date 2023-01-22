@@ -1,5 +1,10 @@
 const carsContainer = document.querySelector("#cars_container");
 const usersContainer = document.querySelector("#users_container");
+const ownerLists = document.querySelector("#owner_lists")
+const carName = document.querySelector("#car_name")
+const modal = document.querySelector("#modal")
+const cancelChange = document.querySelector("#cancel_change")
+const changeOwnerBtn = document.querySelector("change_owner_btn")
 
 const BASE_URL = "http://localhost:8080";
 
@@ -36,6 +41,7 @@ const drawCars = async () => {
                 <p>Color: ${car.color}</p>
                 <p>Year: ${car.year}</p>
                 <p>Current owner: ${car.owner?.fullName || ''}</p>
+                <button onclick="openChangeModal('${car._id}')">Change user</button>
                 <p>Owners history:</p> 
                 ${car.ownersHistory.map(item => `<li>${item.fullName}</li>`).join('')} 
             </div>
@@ -44,4 +50,45 @@ const drawCars = async () => {
     }
 }
 
+const drawUsers = async () =>{
+    const users = await fetchData("/users")
+    console.log(users)
+    for(const user of users){
+        usersContainer.innerHTML += `
+            <div class="user_item">
+                <p>User name: ${user.fullName}</p>
+        `
+    }
+
+}
+
+const openChangeModal = async (carId)=> {
+    const users = await fetchData("/users")
+    const carData = await fetchData(`/cars/yourcar/${carId}`)
+    carName.textContent = await carData[0].model
+    carName.dataset.id = await carData[0]._id
+    filteredUsers = users.filter((user) => user._id !== carData[0].owner._id)
+    for(const user of filteredUsers){
+        ownerLists.innerHTML +=`
+            <option data-userId="${user._id}">${user.fullName}</option>
+        `
+    }
+    openModal()
+}
+
+const changeUser = ()=>{
+    
+}
+
+
+const openModal = () =>{
+    modal.style.display = "block"
+}
+
+const closeModal = () =>{
+    modal.style.display = "none"
+}
+
+cancelChange.addEventListener("click", closeModal)
+drawUsers();
 drawCars();
