@@ -4,9 +4,10 @@ const ownerLists = document.querySelector("#owner_lists")
 const carName = document.querySelector("#car_name")
 const modal = document.querySelector("#modal")
 const cancelChange = document.querySelector("#cancel_change")
-const changeOwnerBtn = document.querySelector("change_owner_btn")
+const changeOwnerBtn = document.querySelector("#change_owner_btn")
 
 const BASE_URL = "http://localhost:8080";
+let newOwnercarId = ''
 
 const fetchData = async (route) => {
     const response = await fetch(BASE_URL + route);
@@ -63,6 +64,7 @@ const drawUsers = async () =>{
 }
 
 const openChangeModal = async (carId)=> {
+    ownerLists.innerHTML = ""
     const users = await fetchData("/users")
     const carData = await fetchData(`/cars/yourcar/${carId}`)
     carName.textContent = await carData[0].model
@@ -70,14 +72,23 @@ const openChangeModal = async (carId)=> {
     filteredUsers = users.filter((user) => user._id !== carData[0].owner._id)
     for(const user of filteredUsers){
         ownerLists.innerHTML +=`
-            <option data-userId="${user._id}">${user.fullName}</option>
+            <option value="${user._id}">${user.fullName}</option>
         `
     }
+    newOwnercarId = carId
     openModal()
 }
 
-const changeUser = ()=>{
-    
+const changeUser = async ()=>{
+    let newOwnerId = ownerLists.value
+    const payload = {
+        newOwnerId: newOwnerId,
+        carId: newOwnercarId
+    }
+    const jsonPayload = JSON.stringify(payload)
+    await postData("/cars/changeOwner", jsonPayload)
+    closeModal()
+    setTimeout(()=> drawCars, 1000)
 }
 
 
@@ -89,6 +100,7 @@ const closeModal = () =>{
     modal.style.display = "none"
 }
 
+changeOwnerBtn.addEventListener("click", changeUser)
 cancelChange.addEventListener("click", closeModal)
 drawUsers();
 drawCars();
